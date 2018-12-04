@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<h1>Add Event</h1>
+{% from "includes/_formhelpers.html" import render_field %}
+{% for key in errors %}
+  <div class="alert alert-danger">
+    <strong>Warning!</strong> {{errors[key]}}
+  </div>
+{% endfor %}
+<form method="post" action="{{ url_for('.add_event') }}">
+  <div class="form-group">
+    {{render_field(form.event, class_="form-control")}} <!-- WTF Form -->
+  </div>
+  <div class="form-group">
+    {{render_field(form.course_name, class_="form-control")}} <!-- WTF Form -->
+  </div>
+  <div class="form-group">
+    {{render_field(form.convenor, class_="form-control")}}
+  </div>
+  <div class="form-group">
+    {{render_field(form.location, class_="form-control")}}
+  </div>
+  <div class="form-group">
+    {{render_field(form.date_time,type="date",class_="form-control")}}
+  </div>
+
+  <div class="form-group">
+    {{render_field(form.early_bird,type="date",class_="form-control")}}
+  </div>
+  <!--div class="form-group">
+    <label>Course Time:</label>
+    <input type="date"  class="form-control" id="session_time" name="session_time">
+  </div>-->
+
+  <div class="form-group">
+    {{render_field(form.duration, class_="form-control")}}
+  </div>
+
+  <div class="form-group">
+    {{render_field(form.capacity, class_="form-control")}}
+  </div>
+
+  <div class="form-group">
+    {{render_field(form.fee, class_="form-control")}}
+  </div>
+
+  <div class="form-group">
+    {{render_field(form.info, class_="form-control")}}
+  </div>
+
+  <p><input type="submit" class="btn btn-primary" value="Add Event"></p>
+</form>
+{% endblock %}

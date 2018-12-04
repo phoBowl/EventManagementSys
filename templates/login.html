@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<div class="container">
+	  {{message}}
+      <form class="form-signin" method="post" action="login">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">Email Address</label>
+        <input type="text" id="email" name="email" class="form-control" placeholder="email" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+        <div class="checkbox">
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+
+      <a href="{{ url_for('regist3r') }}">If you are guest, click here to register</a>
+    </div>
+
+
+{% endblock %}

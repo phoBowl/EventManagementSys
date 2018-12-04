@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<h1>Add Session</h1>
+{% from "includes/_formhelpers.html" import render_field %}
+{% for key in errors %}
+  <div class="alert alert-danger">
+    <strong>Warning!</strong> {{errors[key]}}
+  </div>
+{% endfor %}
+<form method="post" action="{{ url_for('.add_session', seminar_id=seminar._ids) }}">
+  <div class="form-group">
+    {{render_field(form.session_topic, class_="form-control")}} <!-- WTF Form -->
+  </div>
+
+  <div class="form-group">
+    {{render_field(form.session_location, class_="form-control")}} <!-- WTF Form -->
+  </div>
+
+  <div class="form-group">
+    {{render_field(form.session_time, type="date" , class_="form-control")}}
+  </div>
+
+  <div class="form-group">
+    {{render_field(form.early_bird,type="date",class_="form-control")}}
+  </div>
+  <!--div class="form-group">
+    <label>Session Time:</label>
+    <input type="date"  class="form-control" id="session_time" name="session_time">
+  </div>-->
+
+  <div class="form-group">
+    {{render_field(form.session_capacity, class_="form-control")}}
+  </div>
+
+  <div class="form-group">
+    {{render_field(form.session_fee, class_="form-control")}}
+  </div>
+
+  <div class="form-group">
+    {{render_field(form.session_duration, class_="form-control")}}
+  </div>
+
+  <p><input type="submit" class="btn btn-primary" value="Add Session"></p>
+</form>
+
+{% endblock %}

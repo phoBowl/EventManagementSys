@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<h1>Add Seminar</h1>
+{% from "includes/_formhelpers.html" import render_field %}
+{% for key in errors %}
+  <div class="alert alert-danger">
+    <strong>Warning!</strong> {{errors[key]}}
+  </div>
+{% endfor %}
+<form  method="post" action="{{ url_for('.add_seminar') }}">
+  <div class="form-group">
+    {{render_field(form.convenor, class_="form-control")}} <!-- WTF Form -->
+  </div>
+  
+  <div class="form-group">
+    {{render_field(form.event_name, class_="form-control")}} <!-- WTF Form -->
+  </div>
+  
+  <div class="form-group">
+    {{render_field(form.event_info, class_="form-control")}} <!-- WTF Form -->
+  </div>
+
+  <div class="form-group">
+    {{render_field(form.seminar_name, class_="form-control")}} <!-- WTF Form -->
+  </div>
+
+  <div class="form-group">
+    {{render_field(form.session_topic, class_="form-control")}} <!-- WTF Form -->
+  </div>
+
+  <div class="form-group">
+    {{render_field(form.session_location, class_="form-control")}} <!-- WTF Form -->
+  </div>
+
+
+  <div class="form-group">
+    {{render_field(form.session_time, type = "date", class_="form-control")}} <!-- WTF Form -->
+  </div>
+
+
+  <div class="form-group">
+   {{render_field(form.early_bird, type = "date", class_="form-control")}} <!-- WTF Form -->
+  </div>
+
+
+  <div class="form-group">
+    {{render_field(form.session_duration, class_="form-control")}} <!-- WTF Form -->
+  </div>
+
+  <div class="form-group">
+    {{render_field(form.session_capacity, class_="form-control")}} <!-- WTF Form -->
+  </div>
+
+  <div class="form-group">
+    {{render_field(form.session_fee, class_="form-control")}} <!-- WTF Form -->
+  </div>
+
+  <button type="submit" class="btn btn-success">Submit</button>
+</form>
+{% endblock %}

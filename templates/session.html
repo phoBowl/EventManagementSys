@@ -1,0 +1,102 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<center><h1>Home Page</h1></center>
+  <center><h1><small> Welcome {{session.username}}</small></h1></center>
+  <!--  -->
+
+  <table class="table table-striped">
+    <tr>
+      <th>Event</th>
+      <th>Convenor</th>
+      <th>Session</th>
+      <th>Location</th>
+      <th>Date</th>
+      <th>Early Bird</th>
+      <th>Duration</th>
+      <th>Status</th>
+      <th>Capacity</th>
+      <th>Fee</th>
+      <th>Info</th>
+      <th>Register</th>
+      <th>Deregister</th>
+      {% if ( poster == seminar._poster) %}
+      <th>Edit</th>
+      <th>Cancel/Open</th>
+      {% endif %}
+    </tr>
+    <!-- START FOR LOOP -->
+    <h2>SESSIONS</h2>
+	{% for s in sessions %}
+
+      <tr>
+        <td>{{ seminar._event_name }}</td>
+      	<td>{{ seminar._seminar_name }}</td>
+				<td>{{ s._topic }}</td>
+				<td>{{ s._location }}</td>
+				<td>{{ s._time }}</td>
+        <td>{{ s._early_bird }}</td>
+				<td>{{ s._duration }}</td>
+        <td>{{ s._status }}</td>
+        <td>{{ s.number_of_trainees() }}/{{ s._capacity }}</td>
+        <td>{{ s._fee }}</td>
+        <form action="{{ url_for('event', event_name=seminar._event_name) }}">
+        <td><input type="submit" value="Info" class="btn btn-info"></td>
+        </form>
+        {% if ( poster != seminar._poster) %}
+        <form method="post" action="{{ url_for('register', event_name=s.topic) }}">
+            <td><input type="submit" value="Register" class="btn btn-success" ></td>
+        </form>
+
+        <form method="post" action="{{ url_for('deregister', event_name=s.topic) }}">
+        	<td><input type="submit" value="Deregister" class="btn btn-danger"></td>
+         </form>
+
+          {% else %}
+
+           <td></td>
+           <td></td>
+          {% endif %}
+          {% if ( poster == seminar._poster) %}
+            <form method="get" action="{{ url_for('.edit_session', seminar_id=seminar._ids, session_id=s._ids) }}">
+                <td><input type="submit" value="Edit" class="btn btn-warning" ></td>
+            </form>
+            {% if (seminar._status == "Open") %}
+              {% if ( s._status == "Open") %}
+                  <form method="post" action="{{ url_for('.cancel_session', seminar_id=seminar._ids, session_id=s._ids) }}">
+                      <td><input type="submit" value="Cancel" class="btn btn-danger"></td>
+                  </form>
+              {% else %}
+                  <form method="post" action="{{ url_for('.open_session', seminar_id=seminar._ids, session_id=s._ids) }}">
+                      <td><input type="submit" value="Open" class="btn btn-success"></td>
+                  </form>
+              {% endif %}
+            {% else %}
+                <td></td>
+            {% endif %}
+          {% else %}
+            <td></td>
+        {% endif %}
+         
+      </tr>
+
+	{% endfor %}
+    <!-- END FOR LOOP -->
+
+	</table>
+
+<!-- Only display if a user is Staff -->
+{% if isStaff %}
+
+{% if (poster == seminar._poster) %}
+<form method="get" action="{{ url_for('.add_session', seminar_id=seminar._ids) }}">
+  <td><input type="submit" value="Add Session" class="btn btn-danger"></td>
+ </form>
+{% endif %}
+  <!-- <a href="/edit_event" class="btn btn-primary">Edit Session</a> -->
+
+{% endif %}
+
+
+{% endblock %}

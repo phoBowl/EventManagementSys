@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="jumbotron text-center">
+  <h1>Welcome to EMS Dashboard</h1>
+  <p class = "lead">Welcome Boy</p>
+</div>
+<!-- {{reg_events}} -->
+ <h2>Registered Events</h2>
+ <table class="table table-striped">
+    <tr>
+      <th>Event</th>
+      <th>Convenor</th>
+      <th>Course</th>
+      <th>Location</th>
+      <th>Date</th>
+      <th>Duration</th>
+      <th>Info</th>
+    </tr>
+    <!-- START FOR LOOP -->
+    {% for event in reg_events %}
+      <tr>
+        <td>{{ event._event_name }}</td>
+        <td>{{ event._convenor }}</td>
+        <td>{{ event._course_name }}</td>
+        <td>{{ event._location }}</td>
+        <td>{{ event._time }}</td>
+        <td>{{ event._duration }}</td>
+      </tr>
+  {% endfor %}
+    <!-- END FOR LOOP -->
+
+  </table>
+
+{% if isStaff %}
+<h2>Created Events</h2>
+ <table class="table table-striped">
+    <tr>
+      <th>Event</th>
+      <th>Convenor</th>
+      <th>Course</th>
+      <th>Location</th>
+      <th>Date</th>
+      <th>Duration</th>
+      <th>Info</th>
+    </tr>
+    <!-- START FOR LOOP -->
+    {% for event in created_events %}
+      <tr>
+        <td>{{ event._event_name }}</td>
+        <td>{{ event._convenor }}</td>
+        <td>{{ event._course_name }}</td>
+        <td>{{ event._location }}</td>
+        <td>{{ event._time }}</td>
+        <td>{{ event._duration }}</td>
+      </tr>
+  {% endfor %}
+    <!-- END FOR LOOP -->
+  </table>
+{% endif %}
+
+{% endblock %}
